@@ -18,7 +18,7 @@ with open("morahistorica.csv", "rU") as fd:
         discmora = 0
         if mora>0:
             discmora = 1
-        mora_hist[(a[0], a[1])] = [ str(mora), str(rango), str(discmora) ]
+        mora_hist[(a[0], a[1])] = [ mora, rango, discmora ]
 
 
 def is_json(myjson):
@@ -36,51 +36,36 @@ def hello_world():
 def query_modelo(data):
     error_dict= {}
     respuesta = {}
+    dict_clasif_cli = { "1":"A", "2":"B", "3":"C", "4":"D", "5":"E" }
+    dict_clasif_deu = { "1":"A", "2":"B", "3":"C", "4":"D", "5":"E" }
     #return data
     if data:
         if is_json(data):
             data_dict = json.loads(data)
+            print("data_dict: " + str(data_dict))
             #return json.dumps(data_dict)+'\n'
-            argDifPre               = data_dict["DifPre"]
+            argDifPre               = data_dict["DifPre"]+",00"
             argEstDoc               = data_dict["EstDoc"]
             argMora                 = data_dict["Mora"]
             argDiscriminarorMora    = data_dict["DiscriminarorMora"]
             argRMora                = data_dict["RMora"]
-            argIvaCom               = data_dict["IvaCom"]
-            argMonAnt               = data_dict["MonAnt"]
-            argMonDoc               = data_dict["MonDoc"]
-            argSalCli               = data_dict["SalCli"]
+            argIvaCom               = "0,00" #data_dict["IvaCom"]
+            argMonAnt               = data_dict["MonAnt"]+",00"
+            argMonDoc               = data_dict["MonDoc"]+",00"
+            argSalCli               = data_dict["SalCli"]+",00"
             argTipDoc               = data_dict["TipDoc"]
-            argMGO                  = data_dict["MGO"]
-            argCTO                  = data_dict["CTO"]
-            argPCO                  = data_dict["PCO"]
-            argMAO                  = data_dict["MAO"]
-            argTGO                  = data_dict["TGO"]
+            argMGO                  = data_dict["MGO"]+",00"
+            argCTO                  = data_dict["CTO"]+",00"
+            argPCO                  = data_dict["PCO"]+",00"
+            argMAO                  = data_dict["MAO"]+",00"
+            argTGO                  = data_dict["TGO"]+",00"
             argdias                 = data_dict["dias"]
-            argClasifCliente        = data_dict["ClasifCliente"]
+            argClasifCliente        = dict_clasif_cli[data_dict["ClasifCliente"]]
             argRutCliDeu            = data_dict["RutCliDeu"]
-            argClasDeu              = data_dict["ClasDeu"]
+            argClasDeu              = dict_clasif_deu[data_dict["ClasDeu"]]
             argDisCriminadorCastigo = data_dict["DisCriminadorCastigo"]
-            if "RutCli" in data_dict:
-                argRutCli = data_dict["RutCli"]
-            else:
-                error_dict["ErrorCode"] = "3"
-                error_dict["ErrorText"] = "RutCli no especificado"
-                respuesta["Error"] = error_dict
-                return json.dumps(respuesta)+'\n'
-
-            if "RutDeu" in data_dict:
-                argRutDeu = data_dict["RutDeu"]
-            else:
-                error_dict["ErrorCode"] = "4"
-                error_dict["ErrorText"] = "RutDeu no especificado"
-                respuesta["Error"] = error_dict
-                return json.dumps(respuesta)+'\n'
-
-            if (argRutCli, argRutDeu) in mora_hist:
-                argMora, argRMora, argDiscriminarorMora = mora_hist[(argRutCli, argRutDeu)]
-            else:
-                argMora, argRMora, argDiscriminarorMora = ("0","0","0")
+            print("argClasifCliente: " + argClasifCliente)
+            print("argClasDeu:       " + argClasDeu)
             values = query_app.qry_modelo(
                  argDifPre, 
                  argEstDoc,
@@ -102,7 +87,7 @@ def query_modelo(data):
                  argRutCliDeu,
                  argClasDeu,
                  argDisCriminadorCastigo,)
-            print(values)
+            print("values: " + values)
             data_resp=values
             #data_resp = "0.5"
             respuesta["Respuesta"] = data_resp
@@ -110,7 +95,7 @@ def query_modelo(data):
             error_dict["ErrorText"] = "OK"
         else:
             error_dict["ErrorCode"] = "2"
-            error_dict["ErrorText"] = "JSON no valido\n"+data+'\n'
+            error_dict["ErrorText"] = "JSON no valido"
     else:
         error_dict["ErrorCode"] = "1"
         error_dict["ErrorText"] = "Data no valida"

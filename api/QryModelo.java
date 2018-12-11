@@ -4,6 +4,12 @@ import hex.genmodel.easy.EasyPredictModelWrapper;
 import hex.genmodel.easy.prediction.*;
 import hex.genmodel.MojoModel;
 import py4j.GatewayServer;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 
 public class QryModelo {
   public String qry_modelo( 
@@ -29,7 +35,7 @@ public class QryModelo {
     String DisCriminadorCastigo
 )
     throws Exception {
-    EasyPredictModelWrapper model = new EasyPredictModelWrapper(MojoModel.load("DRF_model_R_1539959310609_1.zip"));
+    EasyPredictModelWrapper model = new EasyPredictModelWrapper(MojoModel.load("DRF_model_R_1544446312064_6.zip"));
 
     RowData row = new RowData();
     row.put("DifPre", DifPre);
@@ -52,10 +58,32 @@ public class QryModelo {
     row.put("RutCliDeu", RutCliDeu);
     row.put("ClasDeu", ClasDeu);
     row.put("DisCriminadorCastigo", DisCriminadorCastigo);
+    System.out.println("===============================================");
+    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    Date date = new Date();
+    System.out.println(dateFormat.format(date));
+    System.out.print("DifPre: ");
+    System.out.println(DifPre);
+    System.out.print("EstDoc: ");
+    System.out.println(EstDoc);
+    System.out.print("Mora: ");
+    System.out.println(Mora);
+    System.out.print("DiscriminarorMora: ");
+    System.out.println(DiscriminarorMora);
+    System.out.print("RMora: ");
+    System.out.println(RMora);
+    System.out.print("IvaCom: ");
+    System.out.println(IvaCom);
+    System.out.print("ClasifCliente: ");
+    System.out.println(ClasifCliente);
+    System.out.print("ClasDeu: ");
+    System.out.println(ClasDeu);
 
     RegressionModelPrediction p = model.predictRegression(row);
     String lstrResult="";
     lstrResult = String.valueOf(p.value);
+    System.out.print("lstrResult: ");
+    System.out.println(lstrResult);
     return lstrResult;
   }
   
