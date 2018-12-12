@@ -44,21 +44,21 @@ def query_modelo(data):
             data_dict = json.loads(data)
             print("data_dict: " + str(data_dict))
             #return json.dumps(data_dict)+'\n'
-            argDifPre               = data_dict["DifPre"]+",00"
+            argDifPre               = data_dict["DifPre"]
             argEstDoc               = data_dict["EstDoc"]
             argMora                 = data_dict["Mora"]
             argDiscriminarorMora    = data_dict["DiscriminarorMora"]
             argRMora                = data_dict["RMora"]
-            argIvaCom               = "0,00" #data_dict["IvaCom"]
-            argMonAnt               = data_dict["MonAnt"]+",00"
-            argMonDoc               = data_dict["MonDoc"]+",00"
-            argSalCli               = data_dict["SalCli"]+",00"
+            argIvaCom               = "0" #data_dict["IvaCom"]
+            argMonAnt               = data_dict["MonAnt"]
+            argMonDoc               = data_dict["MonDoc"]
+            argSalCli               = data_dict["SalCli"]
             argTipDoc               = data_dict["TipDoc"]
-            argMGO                  = data_dict["MGO"]+",00"
-            argCTO                  = data_dict["CTO"]+",00"
-            argPCO                  = data_dict["PCO"]+",00"
-            argMAO                  = data_dict["MAO"]+",00"
-            argTGO                  = data_dict["TGO"]+",00"
+            argMGO                  = data_dict["MGO"]
+            argCTO                  = data_dict["CTO"]
+            argPCO                  = data_dict["PCO"]
+            argMAO                  = data_dict["MAO"]
+            argTGO                  = data_dict["TGO"]
             argdias                 = data_dict["dias"]
             argClasifCliente        = dict_clasif_cli[data_dict["ClasifCliente"]]
             argRutCliDeu            = data_dict["RutCliDeu"]
