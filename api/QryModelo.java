@@ -35,7 +35,7 @@ public class QryModelo {
     String DisCriminadorCastigo
 )
     throws Exception {
-    EasyPredictModelWrapper model = new EasyPredictModelWrapper(MojoModel.load("DRF_model_R_1544621982855_2.zip"));
+    EasyPredictModelWrapper model = new EasyPredictModelWrapper(MojoModel.load("Modelo.zip"));
 
     RowData row = new RowData();
     row.put("DifPre", DifPre);
